@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Short Links Maker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box; /* Fix: Include padding and border in the input width calculation */
+        }
+
+        input:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #shortLinkContainer {
+            display: none;
+            margin-top: 30px;
+            transition: opacity 0.3s;
+        }
+
+        #shortLinkContainer.show {
+            display: block;
+            opacity: 1;
+        }
+
+        #shortLink {
+            font-size: 18px;
+            word-wrap: break-word;
+            background-color: #f5f5f5;
+            padding: 12px;
+            border-radius: 5px;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        #copyButton {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #copyButton:hover {
+            background-color: #45a049;
+        }
+
+        #copyButton.copied {
+            background-color: #d6d6d6;
+            color: #333;
+            pointer-events: none;
+        }
+
+        #goBackContainer {
+            margin-top: 10px;
+        }
+
+        #goBackButton {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #goBackButton:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Short Links Maker</h1>
+        <input type="url" id="originalUrl" placeholder="Enter the original URL" required>
+        <button onclick="generateShortLink()">Generate Short Link</button>
+        <div id="shortLinkContainer">
+            <p id="shortLink"></p>
+            <button id="copyButton" onclick="copyShortLink()">Copy to Clipboard</button>
+          <button id="goBackButton">Go Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateShortLink() {
+            const originalUrl = document.getElementById("originalUrl").value;
+            // Add logic to generate a short code using a library like nanoid or shortid
+            // For example, you can use nanoid to generate a random 7-character string:
+            const shortCode = nanoid(7);
+            const shortLink = `https://short-links.coltensus.repl.co/${shortCode}`;
+            
+            // Display the short link to the user
+            const shortLinkElement = document.getElementById("shortLink");
+            shortLinkElement.innerText = shortLink;
+
+            // Show the short link container with a fade-in effect
+            const shortLinkContainer = document.getElementById("shortLinkContainer");
+            shortLinkContainer.classList.add("show");
+        }
+
+        function copyShortLink() {
+            // Copy the short link to the clipboard
+            const shortLinkElement = document.getElementById("shortLink");
+            const textArea = document.createElement("textarea");
+            textArea.value = shortLinkElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+
+            // Provide visual feedback to the user
+            const copyButton = document.getElementById("copyButton");
+            copyButton.classList.add("copied");
+            copyButton.innerText = "Copied!";
+            setTimeout(() => {
+                copyButton.classList.remove("copied");
+                copyButton.innerText = "Copy to Clipboard";
+            }, 1500);
+        }
+    </script>
+<script>
+  alert("This Doesn't Work Yet And The Go Back Button Is Glitched Too Lol!")
+</script>
+<script src="https://files.coltensus.repl.co/Offline-Screen-2.js"></script>
+    <script src="https://coltensus.repl.co/devicedetailsgetterforconsolelogonly.js"></script>
+</body>
+</html>
